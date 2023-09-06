@@ -51,6 +51,10 @@ $install_ansible_suse = <<-SCRIPT
 sudo zypper install -y ansible
 SCRIPT
 
+$init_ansible_cfg = <<-SCRIPT
+mkdir -p ~/ansible/projects/start/
+SCRIPT
+
 Vagrant.configure("2") do |config|
 
   config.vm.define "ansible" do |ansible|
@@ -60,6 +64,8 @@ Vagrant.configure("2") do |config|
     ansible.vm.provision "shell", name: "create_file_hosts", inline: $create_file_hosts
     ansible.vm.provision "shell", name: "create_ssh_key_pair", inline: $create_ssh_key_pair
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
+    ansible.vm.provision "file", source: "projects/start/ansible.cfg", destination: "ansible/projects/start/ansible.cfg"
+    ansible.vm.provision "file", source: "projects/start/inventory", destination: "ansible/projects/start/inventory"
   end
 
   config.vm.define "debian" do |debian|
