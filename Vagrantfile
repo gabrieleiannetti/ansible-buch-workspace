@@ -27,6 +27,16 @@ $create_file_hosts = <<-SCRIPT
 echo "#{HOSTS}" > /etc/hosts
 SCRIPT
 
+$create_ssh_key_pair = <<-SCRIPT
+SSH_PRIVATE_KEY=/home/vagrant/.ssh/id_rsa
+
+if [ -f "$SSH_PRIVATE_KEY" ]; then
+  echo "Skipping ssh-keygen - $SSH_PRIVATE_KEY already exists"
+else
+  sudo -u vagrant ssh-keygen -q -N '' -f $SSH_PRIVATE_KEY
+fi
+SCRIPT
+
 $install_ansible_debian = <<-SCRIPT
 sudo apt update
 sudo apt install -y ansible
@@ -48,6 +58,7 @@ Vagrant.configure("2") do |config|
     ansible.vm.hostname = "ansible"
     ansible.vm.network :private_network, ip: "#{NETWORK_HOST_ANSIBLE}"
     ansible.vm.provision "shell", name: "create_file_hosts", inline: $create_file_hosts
+    ansible.vm.provision "shell", name: "create_ssh_key_pair", inline: $create_ssh_key_pair
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
   end
 
