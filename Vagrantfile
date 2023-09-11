@@ -66,6 +66,7 @@ Vagrant.configure("2") do |config|
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
     ansible.vm.provision "file", source: "projects/start/ansible.cfg", destination: "ansible/projects/start/ansible.cfg"
     ansible.vm.provision "file", source: "projects/start/inventory", destination: "ansible/projects/start/inventory"
+    ansible.vm.provision "shell", inline: "sudo apt install vim"
   end
 
   config.vm.define "debian" do |debian|
