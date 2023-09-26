@@ -85,8 +85,8 @@ Vagrant.configure("2") do |config|
     ansible.vm.provision "shell", name: "create_file_hosts", inline: $create_file_hosts
     ansible.vm.provision "shell", name: "setup_ssh", inline: $setup_ssh
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
-    ansible.vm.provision "file", source: "projects/start/ansible.cfg", destination: "ansible/projects/start/ansible.cfg"
-    ansible.vm.provision "file", source: "projects/start/inventory", destination: "ansible/projects/start/inventory"
+    ansible.vm.provision "file", source: "projects/start/ansible.cfg", destination: "/home/vagrant/ansible/projects/start/ansible.cfg"
+    ansible.vm.provision "file", source: "projects/start/inventory", destination: "/home/vagrant/ansible/projects/start/inventory"
   end
 
   config.vm.define "debian" do |debian|
