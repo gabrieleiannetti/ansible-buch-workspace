@@ -27,7 +27,7 @@ $create_file_hosts = <<-SCRIPT
 echo "#{HOSTS}" > /etc/hosts
 SCRIPT
 
-$create_ssh_key_pair = <<-SCRIPT
+$setup_ssh = <<-SCRIPT
 SSH_PRIVATE_KEY=/home/vagrant/.ssh/id_rsa
 
 if [ -f "$SSH_PRIVATE_KEY" ]; then
@@ -35,6 +35,27 @@ if [ -f "$SSH_PRIVATE_KEY" ]; then
 else
   sudo -u vagrant ssh-keygen -q -N '' -f $SSH_PRIVATE_KEY
 fi
+
+sudo apt install -y sshpass
+
+deploy_key () {
+
+  ping -c 1 $1 > /dev/null
+  RESULT=$?
+
+  if [[ $RESULT -eq 0 ]]; then
+  echo "Deploying SSH key on host $1"
+    sudo -u vagrant sshpass -p vagrant ssh-copy-id vagrant@$1 2> /dev/null
+  else
+    echo "Host $1 is offline - skipping SSH key deployment"
+  fi
+}
+
+deploy_key "debian"
+deploy_key "rocky"
+deploy_key "suse"
+deploy_key "ubuntu"
+
 SCRIPT
 
 $install_ansible_debian = <<-SCRIPT
@@ -62,11 +83,10 @@ Vagrant.configure("2") do |config|
     ansible.vm.hostname = "ansible"
     ansible.vm.network :private_network, ip: "#{NETWORK_HOST_ANSIBLE}"
     ansible.vm.provision "shell", name: "create_file_hosts", inline: $create_file_hosts
-    ansible.vm.provision "shell", name: "create_ssh_key_pair", inline: $create_ssh_key_pair
+    ansible.vm.provision "shell", name: "setup_ssh", inline: $setup_ssh
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
     ansible.vm.provision "file", source: "projects/start/ansible.cfg", destination: "ansible/projects/start/ansible.cfg"
     ansible.vm.provision "file", source: "projects/start/inventory", destination: "ansible/projects/start/inventory"
-    ansible.vm.provision "shell", inline: "sudo apt install vim"
   end
 
   config.vm.define "debian" do |debian|
