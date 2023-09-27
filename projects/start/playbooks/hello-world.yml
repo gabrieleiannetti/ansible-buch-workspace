@@ -1,0 +1,15 @@
+---
+# ansible-playbook playbooks/hello-world.yml
+
+- hosts: localhost
+
+  tasks:
+    - debug: msg="Hello World!"
+
+    # See ansible docs for more builtin modules:
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html
+    - name: Prints more messages
+      ansible.builtin.debug:
+        msg:
+          - "Another message with 'Hello World!'"
+          - "And another 'Hello World!'"
