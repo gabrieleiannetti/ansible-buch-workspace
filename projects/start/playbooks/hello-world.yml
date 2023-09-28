@@ -1,7 +1,7 @@
 ---
 # ansible-playbook playbooks/hello-world.yml
 
-- hosts: localhost
+- hosts: all
 
   tasks:
     - debug: msg="Hello World!"
@@ -13,3 +13,9 @@
         msg:
           - "Another message with 'Hello World!'"
           - "And another 'Hello World!'"
+
+    - name: Another debug message
+      debug:
+        msg:
+          - "Another message with 'Hello World!'"
+          - "This time with short module name without module path..."
