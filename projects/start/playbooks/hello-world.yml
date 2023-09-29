@@ -5,6 +5,7 @@
 
   tasks:
     - debug: msg="Hello World!"
+      tags: test
 
     # See ansible docs for more builtin modules:
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html
