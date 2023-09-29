@@ -40,7 +40,7 @@ sudo apt install -y sshpass
 
 deploy_key () {
 
-  ping -c 1 $1 > /dev/null
+  ping -c 1 -w 1 $1 > /dev/null
   RESULT=$?
 
   if [[ $RESULT -eq 0 ]]; then
