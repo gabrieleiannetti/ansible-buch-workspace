@@ -1,7 +1,8 @@
-[test_hosts]
+[test_cluster]
 debian
+ubuntu
 
-[test_hosts:vars]
+[test_cluster:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 ansible_user=vagrant
