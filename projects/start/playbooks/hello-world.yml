@@ -1,6 +1,4 @@
 ---
-# ansible-playbook playbooks/hello-world.yml
-
 - hosts: all
 
   tasks:
