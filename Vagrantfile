@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-#
-# Bitte gegebenenfalls anpassen:
-#
 NETWORK_PREFIX = "192.168.56"
 
 NETWORK_HOST_ANSIBLE = NETWORK_PREFIX + "." + "10"
