@@ -1,0 +1,8 @@
+# Variables are initialized by outside of the playbook e.g. group_vars/, host_vars/
+---
+- hosts: all
+
+  tasks:
+    - name: Debug
+      debug:
+        msg: "Color: {{color}}, number: {{number}}"

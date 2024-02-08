@@ -2,6 +2,9 @@
 debian
 ubuntu
 
+[debian_hosts]
+debian
+
 [test_cluster:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'

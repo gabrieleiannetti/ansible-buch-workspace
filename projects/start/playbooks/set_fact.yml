@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+
+  tasks:
+
+    - name: Set vars
+      set_fact:
+        color: blue
+        number: 42
+
+    - name: Debug
+      debug:
+        msg: "Color: {{color}}, number: {{number}}"
