@@ -1,0 +1,13 @@
+---
+- hosts: debian
+
+  tasks:
+
+    - name: Determine space of root partition
+      command: df -h /
+      changed_when: false
+      register: df_cmd
+
+    - name: Debug
+      debug:
+        msg: "{{df_cmd.stdout_lines}}"
