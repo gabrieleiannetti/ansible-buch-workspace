@@ -1,0 +1,38 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  vars:
+    tmp_dir: /tmp/download
+
+  tasks:
+
+    - name: Download remote files into /tmp/download
+
+      block:
+
+        - name: Create /tmp/download
+          file:
+            path: "{{tmp_dir}}"
+            state: directory
+
+        - name: Download files
+          get_url:
+            url: http://localhost/{{item}}
+            dest: /tmp/Download/{{item}}
+          with_items: [index.html, ttt.txt]
+
+      rescue:
+
+        - name: Cleanup /tmp/download
+          file:
+            path: /tmp/download
+            state: absent
+
+        - name: Fail execution
+          fail: msg="error"
+
+    - name: Should not be reached
+      debug:
+        msg: "Code reached, but should not because of previous fail in rescue!"
+

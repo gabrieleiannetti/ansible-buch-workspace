@@ -1,0 +1,10 @@
+---
+- hosts: all
+
+  tasks:
+
+    - name: Throw error if find cmd failed
+      command: find /etc -name 'whatever.conf'
+      changed_when: false
+      register: find_cmd
+      failed_when: find_cmd.stdout == '' or find_cmd.rc != 0
