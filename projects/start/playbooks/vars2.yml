@@ -1,6 +1,7 @@
 # Variables are initialized by outside of the playbook e.g. group_vars/, host_vars/
 ---
 - hosts: all
+  gather_facts: false
 
   tasks:
     - name: Debug
