@@ -1,0 +1,10 @@
+---
+- hosts: all
+  # Default: true
+  gather_facts: true
+
+  tasks:
+    - name: Print datetime
+      debug:
+        # Remove prefix "ansible_" facts "ansible_date_time"
+        msg: "Datetime on host: {{ansible_facts.date_time['date']}} {{ansible_facts.date_time['time']}}"
