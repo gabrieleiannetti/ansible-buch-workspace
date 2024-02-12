@@ -7,11 +7,11 @@
 
   tasks:
 
-    - name: Download remote files into /tmp/download
+    - name: Download remote files into {{tmp_dir}}
 
       block:
 
-        - name: Create /tmp/download
+        - name: Create {{tmp_dir}}
           file:
             path: "{{tmp_dir}}"
             state: directory
@@ -19,14 +19,14 @@
         - name: Download files
           get_url:
             url: http://localhost/{{item}}
-            dest: /tmp/Download/{{item}}
+            dest: "{{tmp_dir}}/{{item}}"
           with_items: [index.html, ttt.txt]
 
       rescue:
 
-        - name: Cleanup /tmp/download
+        - name: Cleanup {{tmp_dir}}
           file:
-            path: /tmp/download
+            path: "{{tmp_dir}}"
             state: absent
 
         - name: Fail execution
