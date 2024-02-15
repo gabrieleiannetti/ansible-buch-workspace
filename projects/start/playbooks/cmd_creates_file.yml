@@ -1,0 +1,16 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  vars:
+    etc_passwd: /etc/passwd
+
+  tasks:
+
+    - name: Sort "{{etc_passwd}}"
+      command:
+        chdir: /tmp
+        cmd: sort "{{etc_passwd}}" -o sorted.txt
+        # If a matching file already exists, this step *will not* be run.
+        creates: sorted.txt
+
