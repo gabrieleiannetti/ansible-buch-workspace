@@ -4,9 +4,9 @@
 
   tasks:
 
-    - name: Copy ttt.conf to target host
+    - name: Copy server ttt.conf to target host
       copy:
-        src: ttt.conf
+        src: server/ttt.conf
         dest: /tmp
         owner: root
         group: root
