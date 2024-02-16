@@ -1,0 +1,23 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  tasks:
+
+    - name: Shell example
+      shell: "ls -l /usr/bin/*a | wc -l"
+      register: output
+
+    - name: Print output of shell example...
+      debug:
+        msg: "{{output.stdout_lines}}"
+
+    - name: Brace-Extension with bash
+      shell:
+        cmd: echo test{1,2,3}
+        executable: /bin/bash
+      register: output
+
+    - name: Print output of brace-extension with bash...
+      debug:
+        msg: "{{output.stdout_lines}}"
