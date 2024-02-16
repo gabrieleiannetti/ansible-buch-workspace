@@ -1,0 +1,13 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  tasks:
+
+    - name: Copy ttt.conf to target host
+      copy:
+        src: ttt.conf
+        dest: /tmp
+        owner: root
+        group: root
+        mode: 0600
