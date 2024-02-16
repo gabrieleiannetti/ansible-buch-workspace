@@ -1,0 +1,9 @@
+---
+- hosts: all, localhost
+  gather_facts: false
+
+  tasks:
+
+    - name: Install vim package
+      package:
+        name: vim
