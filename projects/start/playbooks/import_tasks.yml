@@ -1,0 +1,6 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  tasks:
+    - import_tasks: hello_world_tasks.yml

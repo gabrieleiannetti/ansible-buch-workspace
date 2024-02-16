@@ -1,0 +1,16 @@
+---
+# tasks to be imported!
+# URGH, breaks yaml format and validation...
+- debug: msg="Hello World!"
+
+- name: Prints more messages
+  ansible.builtin.debug:
+    msg:
+      - "Another message with 'Hello World!'"
+      - "And another 'Hello World!'"
+
+- name: Another debug message
+  debug:
+    msg:
+      - "Another message with 'Hello World!'"
+      - "This time with short module name without module path..."

@@ -1,0 +1,12 @@
+---
+- hosts: debian
+  gather_facts: false
+
+  roles:
+    - create_network_config
+    - install_common_packages
+
+  tasks:
+    - name: Debug
+      debug:
+        msg: "Tasks section started..."

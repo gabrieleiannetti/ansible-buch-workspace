@@ -1,0 +1,3 @@
+---
+- name: Create Network Config
+  debug: msg="Creating network config"
