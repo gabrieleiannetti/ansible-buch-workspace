@@ -42,7 +42,7 @@ deploy_key () {
 
   if [[ $RESULT -eq 0 ]]; then
   echo "Deploying SSH key on host $1"
-    sudo -u vagrant sshpass -p vagrant ssh-copy-id vagrant@$1 2> /dev/null
+    sudo -u vagrant sshpass -p vagrant ssh-copy-id vagrant@$1
   else
     echo "Host $1 is offline - skipping SSH key deployment"
   fi
