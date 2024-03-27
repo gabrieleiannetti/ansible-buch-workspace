@@ -24,6 +24,11 @@ $create_file_hosts = <<-SCRIPT
 echo "#{HOSTS}" > /etc/hosts
 SCRIPT
 
+$create_ansible_vault_id = <<-SCRIPT
+echo ">>> JUST FOR TESTING... - EXPOSING PASSWORD FILE <<<"
+echo "1019" > /home/vagrant/pw
+SCRIPT
+
 $setup_ssh = <<-SCRIPT
 SSH_PRIVATE_KEY=/home/vagrant/.ssh/id_rsa
 
@@ -52,7 +57,6 @@ deploy_key "debian"
 deploy_key "rocky"
 deploy_key "suse"
 deploy_key "ubuntu"
-
 SCRIPT
 
 $install_ansible_debian = <<-SCRIPT
@@ -81,6 +85,7 @@ Vagrant.configure("2") do |config|
     ansible.vm.network :private_network, ip: "#{NETWORK_HOST_ANSIBLE}"
     ansible.vm.provision "shell", name: "create_file_hosts", inline: $create_file_hosts
     ansible.vm.provision "shell", name: "setup_ssh", inline: $setup_ssh
+    ansible.vm.provision "shell", name: "create_ansible_vault_id", inline: $create_ansible_vault_id
     ansible.vm.provision "shell", name: "install_ansible_debian", inline: $install_ansible_debian
     ansible.vm.provision "file", source: "projects/", destination: "~/ansible/projects"
   end
